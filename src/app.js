@@ -5,7 +5,7 @@ const swaggerUi = require('swagger-ui-express');
 const YAML = require('yamljs')
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
 const prismaClient = new prisma();
 
 app.use(express.json());
