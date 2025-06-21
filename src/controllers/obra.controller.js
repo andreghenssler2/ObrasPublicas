@@ -44,8 +44,62 @@ async function listarObras(req, res) {
     res.status(500).json({ error: 'Erro ao listar obras' });
   }
 }
+async function listarObrasPublicas(req, res) {
+  try {
+    const obras = await prisma.obra.findMany({
+      include: {
+        etapas: {
+          select: { id: true, nome: true, status: true }
+        },
+        documentos: {
+          select: { id: true, nome: true, url: true }
+        }
+      },
+      orderBy: { criadoEm: 'desc' }
+    });
+
+    res.json(obras);
+  } catch (error) {
+    console.error('Erro ao listar obras públicas:', error);
+    res.status(500).json({ error: 'Erro ao listar obras públicas' });
+  }
+}
+async function consultarObrasPorFiltro(req, res) {
+  try {
+    const { bairro, status } = req.query;
+
+    // Monta o filtro dinamicamente
+    const where = {};
+    if (bairro) {
+      // filtro case insensitive por bairro (localizacao)
+      where.localizacao = {
+        contains: bairro,
+        mode: 'insensitive'
+      };
+    }
+    if (status) {
+      where.status = status;
+    }
+
+    const obras = await prisma.obra.findMany({
+      where,
+      include: {
+        etapas: true,
+        documentos: true,
+      },
+      orderBy: { criadoEm: 'desc' }
+    });
+
+    res.json(obras);
+  } catch (error) {
+    console.error('Erro ao consultar obras por filtro:', error);
+    res.status(500).json({ error: 'Erro ao consultar obras.' });
+  }
+}
 
 module.exports = {
+  listarObrasPublicas,
   criarObra,
   listarObras,
+  consultarObrasPorFiltro,
 };

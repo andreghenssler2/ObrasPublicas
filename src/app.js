@@ -7,6 +7,8 @@ const swaggerSpec = require('./swagger');
 const userRoutes = require('./routes/user.routes');
 const obraRoutes = require('./routes/obra.routes');
 const melhoriaRoutes = require('./routes/melhoria.routes');
+const etapaRoutes = require('./routes/etapa.routes');
+
 
 const app = express();
 const port = process.env.PORT || 3000;
@@ -20,6 +22,7 @@ app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 app.use('/api/usuarios', userRoutes);
 app.use('/api/obras', obraRoutes);
 app.use('/api/melhorias', melhoriaRoutes);
+app.use('/api/etapas', etapaRoutes);
 
 app.get('/', (req, res) => {
   res.send('ObraFácil API - funcionando');
