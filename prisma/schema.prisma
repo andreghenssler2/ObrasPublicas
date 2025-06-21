@@ -61,3 +61,12 @@ model Melhoria {
   obra      Obra?    @relation(fields: [obraId], references: [id])
   criadoEm  DateTime @default(now())
 }
+
+model EtapaHistorico {
+  id         Int      @id @default(autoincrement())
+  etapaId    Int
+  nome       String
+  status     String
+  alteradoEm DateTime @default(now())
+  
+}

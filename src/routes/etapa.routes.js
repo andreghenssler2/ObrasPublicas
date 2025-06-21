@@ -1,20 +1,21 @@
-const express = require('express');
-const router = express.Router();
-const etapaController = require('../controllers/etapa.controller');
-const authMiddleware = require('../middlewares/auth.middleware');
-
 /**
  * @swagger
  * tags:
  *   name: Etapas
- *   description: Controle das etapas das obras
+ *   description: Controle de etapas das obras, com histórico e conclusão automática da obra
  */
+
+const express = require('express');
+const router = express.Router();
+
+const etapaController  = require('../controllers/etapa.controller');
+const authMiddleware   = require('../middlewares/auth.middleware'); // proteger rotas (servidor)
 
 /**
  * @swagger
- * /api/etapas:
+ * /etapas:
  *   post:
- *     summary: Criar uma nova etapa para uma obra
+ *     summary: Criar nova etapa para uma obra
  *     tags: [Etapas]
  *     security:
  *       - bearerAuth: []
@@ -24,44 +25,37 @@ const authMiddleware = require('../middlewares/auth.middleware');
  *         application/json:
  *           schema:
  *             type: object
- *             required:
- *               - nome
- *               - status
- *               - obraId
+ *             required: [nome, status, obraId]
  *             properties:
  *               nome:
  *                 type: string
  *                 example: Planejamento
  *               status:
  *                 type: string
- *                 example: Em andamento
+ *                 example: planejamento
  *               obraId:
  *                 type: integer
  *                 example: 1
  *     responses:
  *       201:
  *         description: Etapa criada com sucesso
- *       400:
- *         description: Dados inválidos
- *       401:
- *         description: Não autorizado
  */
 router.post('/', authMiddleware, etapaController.criarEtapa);
 
 /**
  * @swagger
- * /api/etapas/{id}:
+ * /etapas/{id}:
  *   put:
- *     summary: Atualizar uma etapa existente
+ *     summary: Atualizar etapa (gera histórico e pode concluir obra)
  *     tags: [Etapas]
  *     security:
  *       - bearerAuth: []
  *     parameters:
  *       - in: path
  *         name: id
+ *         required: true
  *         schema:
  *           type: integer
- *         required: true
  *         description: ID da etapa
  *     requestBody:
  *       required: true
@@ -75,14 +69,10 @@ router.post('/', authMiddleware, etapaController.criarEtapa);
  *                 example: Execução
  *               status:
  *                 type: string
- *                 example: Concluído
+ *                 example: finalizada
  *     responses:
  *       200:
- *         description: Etapa atualizada com sucesso
- *       400:
- *         description: Dados inválidos
- *       401:
- *         description: Não autorizado
+ *         description: Etapa atualizada
  *       404:
  *         description: Etapa não encontrada
  */
@@ -90,36 +80,40 @@ router.put('/:id', authMiddleware, etapaController.atualizarEtapa);
 
 /**
  * @swagger
- * /api/etapas/obra/{obraId}:
+ * /etapas/obra/{obraId}:
  *   get:
  *     summary: Listar etapas de uma obra
  *     tags: [Etapas]
  *     parameters:
  *       - in: path
  *         name: obraId
+ *         required: true
  *         schema:
  *           type: integer
- *         required: true
  *         description: ID da obra
  *     responses:
  *       200:
  *         description: Lista de etapas
- *         content:
- *           application/json:
- *             schema:
- *               type: array
- *               items:
- *                 type: object
- *                 properties:
- *                   id:
- *                     type: integer
- *                   nome:
- *                     type: string
- *                   status:
- *                     type: string
- *       404:
- *         description: Obra não encontrada
  */
 router.get('/obra/:obraId', etapaController.listarEtapasPorObra);
+
+/**
+ * @swagger
+ * /etapas/historico/{etapaId}:
+ *   get:
+ *     summary: Histórico de alterações de uma etapa
+ *     tags: [Etapas]
+ *     parameters:
+ *       - in: path
+ *         name: etapaId
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da etapa
+ *     responses:
+ *       200:
+ *         description: Histórico da etapa
+ */
+router.get('/historico/:etapaId', etapaController.listarHistoricoEtapa);
 
 module.exports = router;

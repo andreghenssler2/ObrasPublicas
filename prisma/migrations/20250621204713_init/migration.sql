@@ -18,8 +18,8 @@ CREATE TABLE "Obra" (
     "cronograma" TEXT NOT NULL,
     "orcamento" DOUBLE PRECISION NOT NULL,
     "status" TEXT NOT NULL,
-    "servidorId" INTEGER NOT NULL,
     "criadoEm" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    "servidorId" INTEGER NOT NULL,
 
     CONSTRAINT "Obra_pkey" PRIMARY KEY ("id")
 );
@@ -44,6 +44,30 @@ CREATE TABLE "Etapa" (
     CONSTRAINT "Etapa_pkey" PRIMARY KEY ("id")
 );
 
+-- CreateTable
+CREATE TABLE "Melhoria" (
+    "id" SERIAL NOT NULL,
+    "nome" TEXT,
+    "email" TEXT,
+    "mensagem" TEXT NOT NULL,
+    "tipo" TEXT NOT NULL,
+    "obraId" INTEGER,
+    "criadoEm" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Melhoria_pkey" PRIMARY KEY ("id")
+);
+
+-- CreateTable
+CREATE TABLE "EtapaHistorico" (
+    "id" SERIAL NOT NULL,
+    "etapaId" INTEGER NOT NULL,
+    "nome" TEXT NOT NULL,
+    "status" TEXT NOT NULL,
+    "alteradoEm" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "EtapaHistorico_pkey" PRIMARY KEY ("id")
+);
+
 -- CreateIndex
 CREATE UNIQUE INDEX "Usuario_email_key" ON "Usuario"("email");
 
@@ -55,3 +79,6 @@ ALTER TABLE "Documento" ADD CONSTRAINT "Documento_obraId_fkey" FOREIGN KEY ("obr
 
 -- AddForeignKey
 ALTER TABLE "Etapa" ADD CONSTRAINT "Etapa_obraId_fkey" FOREIGN KEY ("obraId") REFERENCES "Obra"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Melhoria" ADD CONSTRAINT "Melhoria_obraId_fkey" FOREIGN KEY ("obraId") REFERENCES "Obra"("id") ON DELETE SET NULL ON UPDATE CASCADE;
