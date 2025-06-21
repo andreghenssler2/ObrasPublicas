@@ -2,24 +2,68 @@ const express = require('express');
 const router = express.Router();
 const obraController = require('../controllers/obra.controller');
 const authMiddleware = require('../middlewares/auth.middleware');
-const multer = require('multer');
-const path = require('path');
 
-// Configuração do multer
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    cb(null, 'uploads/'); // pasta para salvar os arquivos
-  },
-  filename: (req, file, cb) => {
-    const ext = path.extname(file.originalname);
-    const uniqueName = `${Date.now()}-${Math.round(Math.random() * 1E9)}${ext}`;
-    cb(null, uniqueName);
-  }
-});
-const upload = multer({ storage });
+/**
+ * @swagger
+ * tags:
+ *   name: Obras
+ *   description: Gerenciamento das obras públicas
+ */
 
+/**
+ * @swagger
+ * /api/obras:
+ *   get:
+ *     summary: Lista todas as obras (público)
+ *     tags: [Obras]
+ *     responses:
+ *       200:
+ *         description: Lista de obras
+ */
 router.get('/', obraController.listarObras);
-// upload.array() para múltiplos arquivos (ex: documentos e imagens)
-router.post('/', authMiddleware, upload.array('arquivos', 10), obraController.criarObra);
+
+/**
+ * @swagger
+ * /api/obras:
+ *   post:
+ *     summary: Cria uma nova obra (somente servidores autenticados)
+ *     tags: [Obras]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             type: object
+ *             required:
+ *               - nome
+ *               - localizacao
+ *               - empresa
+ *               - cronograma
+ *               - orcamento
+ *               - status
+ *             properties:
+ *               nome:
+ *                 type: string
+ *               localizacao:
+ *                 type: string
+ *               empresa:
+ *                 type: string
+ *               cronograma:
+ *                 type: string
+ *               orcamento:
+ *                 type: number
+ *               status:
+ *                 type: string
+ *     responses:
+ *       201:
+ *         description: Obra criada com sucesso
+ *       400:
+ *         description: Dados inválidos
+ *       401:
+ *         description: Não autorizado
+ */
+router.post('/', authMiddleware, obraController.criarObra);
 
 module.exports = router;

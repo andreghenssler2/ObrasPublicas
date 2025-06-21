@@ -1,14 +1,22 @@
 const jwt = require('jsonwebtoken');
+const JWT_SECRET = process.env.JWT_SECRET;
 
-module.exports = function (req, res, next) {
-  const token = req.headers['authorization'];
-  if (!token) return res.status(401).json({ msg: 'Token ausente' });
+function authMiddleware(req, res, next) {
+  const authHeader = req.headers.authorization;
+
+  if (!authHeader || !authHeader.startsWith('Bearer ')) {
+    return res.status(401).json({ error: 'Token não fornecido ou inválido' });
+  }
+
+  const token = authHeader.split(' ')[1];
 
   try {
-    const decoded = jwt.verify(token.split(' ')[1], process.env.JWT_SECRET);
-    req.user = decoded;
+    const decoded = jwt.verify(token, JWT_SECRET);
+    req.user = decoded; // coloca dados do usuário no req para usar nas controllers
     next();
-  } catch (err) {
-    res.status(401).json({ msg: 'Token inválido' });
+  } catch (error) {
+    return res.status(401).json({ error: 'Token inválido ou expirado' });
   }
-};
+}
+
+module.exports = authMiddleware;

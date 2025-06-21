@@ -1,16 +1,30 @@
+require('dotenv').config();
 const express = require('express');
-const app = express();
+const cors = require('cors');
+const swaggerUi = require('swagger-ui-express');
+const swaggerSpec = require('./swagger');
+
 const userRoutes = require('./routes/user.routes');
 const obraRoutes = require('./routes/obra.routes');
-const authMiddleware = require('./middlewares/auth.middleware');
+const melhoriaRoutes = require('./routes/melhoria.routes');
 
-require('dotenv').config();
-require('./config/db'); // conexão com o banco
+const app = express();
+const port = process.env.PORT || 3000;
 
+app.use(cors());
 app.use(express.json());
-app.use(express.static('../public'));
+
+// Rotas
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 app.use('/api/usuarios', userRoutes);
-app.use('/api/obras',authMiddleware, obraRoutes);
+app.use('/api/obras', obraRoutes);
+app.use('/api/melhorias', melhoriaRoutes);
 
-module.exports = app;
+app.get('/', (req, res) => {
+  res.send('ObraFácil API - funcionando');
+});
+
+app.listen(port, () => {
+  console.log(`Servidor rodando na porta http://localhost:${port}`);
+});
