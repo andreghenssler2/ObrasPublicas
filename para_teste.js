@@ -6,7 +6,7 @@ Criar usuario
 
 //Login usuario
 { "email": "gustavo@prefeitura.gov.br", "senha": "Agh@2021"}
-
+asdfghjk
 // Criar obra
 { "nome": "Praça Central", "localizacao": "centro", "empresa": "Construtora XYZ", "cronograma": "Jun - Dez 2025", "orcamento": 10000.00, "status": "Planejamento","tipo": "recuperacao"}
 { "nome": "Revitalização da Praça das Palmeiras", "localizacao": "Jardim", "empresa": "Construtora VerdeVale Engenharia Ltda.", "cronograma": "15 de julho de 2025 a 15 de março de 2026", "orcamento": 320000000, "status": "Aguardando...","tipo": "recuperacao"}
