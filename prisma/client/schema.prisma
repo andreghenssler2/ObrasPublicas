@@ -1,0 +1,94 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "./client"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id         Int         @id @default(autoincrement())
+  nome       String
+  email      String      @unique
+  username   String      @unique
+  senha      String
+  tipo       TipoUsuario
+  obras      Obra[]      @relation("ObrasDoServidor")
+  interacoes Interacao[]
+  criadoUser DateTime    @default(now())
+}
+
+model Obra {
+  id               Int         @id @default(autoincrement())
+  nome             String
+  localizacao      String
+  empresa          String
+  cronogramaInicio DateTime
+  cronogramaFim    DateTime
+  orcamento        Float
+  status           StatusObra
+  servidorId       Int
+  servidor         User        @relation("ObrasDoServidor", fields: [servidorId], references: [id])
+  etapas           Etapa[]
+  documentos       Documento[]
+  interacoes       Interacao[]
+  createdAt        DateTime    @default(now())
+}
+
+model Etapa {
+  id         Int         @id @default(autoincrement())
+  nome       String
+  descricao  String
+  dataInicio DateTime
+  dataFim    DateTime
+  status     StatusEtapa
+  obraId     Int
+  obra       Obra        @relation(fields: [obraId], references: [id])
+}
+
+model Documento {
+  id     Int    @id @default(autoincrement())
+  titulo String
+  url    String
+  tipo   String
+  obraId Int
+  obra   Obra   @relation(fields: [obraId], references: [id])
+}
+
+model Interacao {
+  id        Int           @id @default(autoincrement())
+  tipo      TipoInteracao
+  mensagem  String
+  usuarioId Int
+  obraId    Int
+  usuario   User          @relation(fields: [usuarioId], references: [id])
+  obra      Obra          @relation(fields: [obraId], references: [id])
+  createdAt DateTime      @default(now())
+}
+
+enum TipoUsuario {
+  cidadao
+  servidor
+}
+
+enum StatusObra {
+  planejamento
+  execucao
+  finalizada
+}
+
+enum StatusEtapa {
+  pendente
+  em_andamento
+  concluida
+}
+
+enum TipoInteracao {
+  sugestao
+  denuncia
+  elogio
+  reclamacao
+  solicitacao
+}
