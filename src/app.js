@@ -8,6 +8,7 @@ const userRoutes = require('./routes/user.routes');
 const obraRoutes = require('./routes/obra.routes');
 const melhoriaRoutes = require('./routes/melhoria.routes');
 const etapaRoutes = require('./routes/etapa.routes');
+const publicRoutes = require('./routes/public.routes');
 
 
 const app = express();
@@ -23,6 +24,7 @@ app.use('/api/usuarios', userRoutes);
 app.use('/api/obras', obraRoutes);
 app.use('/api/melhorias', melhoriaRoutes);
 app.use('/api/etapas', etapaRoutes);
+app.use('/api/public', publicRoutes);
 
 app.get('/', (req, res) => {
   res.send('ObraFácil API - funcionando');

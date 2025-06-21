@@ -25,6 +25,7 @@ model Obra {
   cronograma   String
   orcamento    Float
   status       String
+  tipo         String?
   criadoEm     DateTime    @default(now())
 
   servidorId   Int

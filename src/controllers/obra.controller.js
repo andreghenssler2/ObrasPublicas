@@ -2,7 +2,7 @@ const { PrismaClient } = require('@prisma/client');
 const prisma = new PrismaClient();
 
 async function criarObra(req, res) {
-  const { nome, localizacao, empresa, cronograma, orcamento, status } = req.body;
+  const { nome, localizacao, empresa, cronograma, orcamento, status,tipo } = req.body;
   const servidorId = req.user.userId;
 
   if (!nome || !localizacao || !empresa || !cronograma || !orcamento || !status) {
@@ -19,6 +19,7 @@ async function criarObra(req, res) {
         orcamento: Number(orcamento),
         status,
         servidorId,
+        tipo,
       }
     });
 
