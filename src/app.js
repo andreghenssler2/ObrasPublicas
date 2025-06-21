@@ -1,5 +1,7 @@
 const express = require('express');
 const app = express();
+const PORT = process.env.PORT || 3000;
+
 const userRoutes = require('./routes/user.routes');
 const obraRoutes = require('./routes/obra.routes');
 const authMiddleware = require('./middlewares/auth.middleware');
