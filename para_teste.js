@@ -1,4 +1,4 @@
-
+// iniciar o vizualizador do Sqlite npx prisma studio
 /*
 Criar usuario
 
