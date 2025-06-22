@@ -76,8 +76,7 @@ router.get('/obras/bairro/:bairro', async (req, res) => {
     const obras = await prisma.obra.findMany({
       where: {
         localizacao: {
-          contains: bairro,
-          mode: 'insensitive'
+          contains: bairro.toLowerCase(),
         }
       },
       include: { etapas: true }
@@ -114,8 +113,7 @@ router.get('/obras/tipo/:tipo', async (req, res) => {
     const obras = await prisma.obra.findMany({
       where: {
         tipo: {
-          contains: tipo,
-          mode: 'insensitive'
+          contains: tipo.toLowerCase(),
         }
       },
       include: { etapas: true }
