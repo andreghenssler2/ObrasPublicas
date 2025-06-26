@@ -13,7 +13,7 @@ const authMiddleware   = require('../middlewares/auth.middleware'); // proteger 
 
 /**
  * @swagger
- * /etapas:
+ * /api/etapas:
  *   post:
  *     summary: Criar nova etapa para uma obra
  *     tags: [Etapas]
@@ -44,7 +44,7 @@ router.post('/', authMiddleware, etapaController.criarEtapa);
 
 /**
  * @swagger
- * /etapas/{id}:
+ * /api/etapas/{id}:
  *   put:
  *     summary: Atualizar etapa (gera histórico e pode concluir obra)
  *     tags: [Etapas]
@@ -80,7 +80,7 @@ router.put('/:id', authMiddleware, etapaController.atualizarEtapa);
 
 /**
  * @swagger
- * /etapas/obra/{obraId}:
+ * /api/etapas/obra/{obraId}:
  *   get:
  *     summary: Listar etapas de uma obra
  *     tags: [Etapas]
@@ -99,7 +99,7 @@ router.get('/obra/:obraId', etapaController.listarEtapasPorObra);
 
 /**
  * @swagger
- * /etapas/historico/{etapaId}:
+ * /api/etapas/historico/{etapaId}:
  *   get:
  *     summary: Histórico de alterações de uma etapa
  *     tags: [Etapas]

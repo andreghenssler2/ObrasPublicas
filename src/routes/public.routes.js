@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 /**
  * @swagger
- * /public/obras/{id}:
+ * /api/public/obras/{id}:
  *   get:
  *     summary: Consultar dados públicos de uma obra
  *     tags: [Consulta Pública]
@@ -54,7 +54,7 @@ router.get('/obras/:id', async (req, res) => {
 
 /**
  * @swagger
- * /public/obras/bairro/{bairro}:
+ * /api/public/obras/bairro/{bairro}:
  *   get:
  *     summary: Listar obras por bairro
  *     tags: [Consulta Pública]
@@ -91,7 +91,7 @@ router.get('/obras/bairro/:bairro', async (req, res) => {
 
 /**
  * @swagger
- * /public/obras/tipo/{tipo}:
+ * /api/public/obras/tipo/{tipo}:
  *   get:
  *     summary: Listar obras por tipo
  *     tags: [Consulta Pública]
@@ -127,7 +127,7 @@ router.get('/obras/tipo/:tipo', async (req, res) => {
 });
 /**
  * @swagger
- * /public/obras:
+ * /api/public/obras:
  *   get:
  *     summary: Listar todas as obras públicas
  *     tags: [Consulta Pública]
@@ -151,7 +151,7 @@ router.get('/obras', async (req, res) => {
 
 /**
  * @swagger
- * /public/etapas/historico/{etapaId}:
+ * /api/public/etapas/historico/{etapaId}:
  *   get:
  *     summary: Consultar histórico público de uma etapa
  *     tags: [Consulta Pública]
