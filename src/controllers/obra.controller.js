@@ -74,8 +74,7 @@ async function consultarObrasPorFiltro(req, res) {
     if (bairro) {
       // filtro case insensitive por bairro (localizacao)
       where.localizacao = {
-        contains: bairro,
-        mode: 'insensitive'
+        contains: bairro.toLowerCase()
       };
     }
     if (status) {
