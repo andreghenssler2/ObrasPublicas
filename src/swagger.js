@@ -8,7 +8,10 @@ const options = {
     version: "1.0.0",
     description: "API para cadastro e acompanhamento de obras públicas"
   },
-  servers: [{ url: "http://localhost:3000" }],
+  servers: [
+     { url: "http://localhost:3000", description: "Servidor local" },
+     { url: "https://obraspublicas-gkg8b7brhgc5d0e8.canadacentral-01.azurewebsites.net/", description: "Servidor Azure" },
+  ],
   components: {
     securitySchemes: {
       bearerAuth: {
