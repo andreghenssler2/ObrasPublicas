@@ -4,7 +4,14 @@ const bcrypt = require('bcrypt');
 
 exports.createUser = async (req, res) => { // Cria usuario,
   try {
-    const user = await Usuario.create(req.body);
+    const { nome, email, senha, tipo } = req.body;
+
+    if (!nome || !email || !senha) {
+      return res.status(400).json({ mensagem: 'Nome, email e senha são obrigatórios' });
+    }
+
+    const hashed = await bcrypt.hash(senha, 10);
+    const user = await Usuario.create({ nome, email, senha: hashed, tipo });
     res.status(201).json(user);
   } catch (error) {
     // Sequelize Unique Constraint Error tem nome 'SequelizeUniqueConstraintError'
@@ -15,3 +22,7 @@ exports.createUser = async (req, res) => { // Cria usuario,
     res.status(500).json({ message: 'Erro interno no servidor.' });
   }
 };
+
+// exports.createUser = async (req, res) => {
+  
+// };

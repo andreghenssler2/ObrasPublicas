@@ -7,7 +7,13 @@ Criar usuario
   "senha": "123456",
   "tipo": "SERVIDOR"
 }
+{
+  "nome": "Andrei Oliveira",
+  "email": "andrei@erxample.com",
+  "senha": "1234567",
+  "tipo": "SERVIDOR"
+}
 
-https://youtu.be/TsYpUWZLPB4
+
 
 */
