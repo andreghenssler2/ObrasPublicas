@@ -1,105 +1,50 @@
-const { PrismaClient } = require('@prisma/client');
-const prisma = new PrismaClient();
+const { Obra, Etapa } = require('../models');
+const { Op, fn, col, where: sequelizeWhere  } = require('sequelize');
 
-async function criarObra(req, res) {
-  const { nome, localizacao, empresa, cronograma, orcamento, status,tipo } = req.body;
-  const servidorId = req.user.userId;
+exports.createObra = async (req, res) => {
+  const obra = await Obra.create(req.body);
+  res.status(201).json(obra);
+};
 
-  if (!nome || !localizacao || !empresa || !cronograma || !orcamento || !status) {
-    return res.status(400).json({ error: 'Todos os campos são obrigatórios' });
-  }
+exports.listObras = async (req, res) => {
+  const obras = await Obra.findAll({ include: 'etapas' });
+  res.json(obras);
+};
 
+exports.listObrasNaoFinalizadas = async (req, res) => {
   try {
-    const obra = await prisma.obra.create({
-      data: {
-        nome,
-        localizacao,
-        empresa,
-        cronograma,
-        orcamento: Number(orcamento),
-        status,
-        servidorId,
-        tipo,
-      }
-    });
-
-    res.status(201).json(obra);
-  } catch (error) {
-    console.error(error);
-    res.status(500).json({ error: 'Erro ao criar obra' });
-  }
-}
-
-async function listarObras(req, res) {
-  try {
-    const obras = await prisma.obra.findMany({
-      include: {
-        servidor: {
-          select: { id: true, nome: true, email: true }
-        }
+    const obras = await Obra.findAll({
+      where: {
+        status: { [Op.ne]: 'finalizada' }
       }
     });
     res.json(obras);
   } catch (error) {
     console.error(error);
-    res.status(500).json({ error: 'Erro ao listar obras' });
+    res.status(500).json({ mensagem: 'Erro ao listar obras não finalizadas' });
   }
-}
-async function listarObrasPublicas(req, res) {
+};
+// Listar obras por bairro (filtro opcional)
+exports.listObrasPorBairro = async (req, res) => {
   try {
-    const obras = await prisma.obra.findMany({
-      include: {
-        etapas: {
-          select: { id: true, nome: true, status: true }
-        },
-        documentos: {
-          select: { id: true, nome: true, url: true }
-        }
-      },
-      orderBy: { criadoEm: 'desc' }
-    });
+    const { bairro } = req.query;
+    let where = {};
 
-    res.json(obras);
-  } catch (error) {
-    console.error('Erro ao listar obras públicas:', error);
-    res.status(500).json({ error: 'Erro ao listar obras públicas' });
-  }
-}
-async function consultarObrasPorFiltro(req, res) {
-  try {
-    const { bairro, status } = req.query;
-
-    // Monta o filtro dinamicamente
-    const where = {};
     if (bairro) {
-      // filtro case insensitive por bairro (localizacao)
-      where.localizacao = {
-        contains: bairro.toLowerCase()
-      };
-    }
-    if (status) {
-      where.status = status;
+      const bairroLower = bairro.toLowerCase();
+      where.localizacao = sequelizeWhere(fn('LOWER', col('localizacao')), {
+        [Op.like]: `%${bairroLower}%`
+      });
     }
 
-    const obras = await prisma.obra.findMany({
+    const obras = await Obra.findAll({
       where,
-      include: {
-        etapas: true,
-        documentos: true,
-      },
-      orderBy: { criadoEm: 'desc' }
+      order: [['createdAt', 'DESC']]
     });
 
     res.json(obras);
   } catch (error) {
-    console.error('Erro ao consultar obras por filtro:', error);
-    res.status(500).json({ error: 'Erro ao consultar obras.' });
+    console.error(error);
+    res.status(500).json({ mensagem: 'Erro ao listar obras por bairro' });
   }
-}
-
-module.exports = {
-  listarObrasPublicas,
-  criarObra,
-  listarObras,
-  consultarObrasPorFiltro,
 };

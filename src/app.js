@@ -1,36 +1,30 @@
-require('dotenv').config();
 const express = require('express');
-const jwt = require('jsonwebtoken');
-const cors = require('cors');
-const swaggerUi = require('swagger-ui-express');
-const swaggerSpec = require('./swagger');
-
-const userRoutes = require('./routes/user.routes');
-const obraRoutes = require('./routes/obra.routes');
-const melhoriaRoutes = require('./routes/melhoria.routes');
-const etapaRoutes = require('./routes/etapa.routes');
-const publicRoutes = require('./routes/public.routes');
-
+require('dotenv').config();
 
 const app = express();
-const port = process.env.PORT || 3000;
 
-app.use(cors());
+// ✅ precisa desse middleware para ler JSON:
 app.use(express.json());
 
-// Rotas
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+// depois vem suas rotas
+const authRoutes = require('./routes/auth.routes');
+const userRoutes = require('./routes/user.routes');
+const obraRoutes = require('./routes/obra.routes');
+const etapaRoutes = require('./routes/etapa.routes');
+const sugestaoRoutes = require('./routes/sugestao.routes');
+const publicRoutes = require('./routes/public.routes');
 
+const { swaggerUi, specs } = require('./docs/swagger');
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+
+app.use('/api/auth', authRoutes);
 app.use('/api/usuarios', userRoutes);
 app.use('/api/obras', obraRoutes);
-app.use('/api/melhorias', melhoriaRoutes);
+app.use('/api/obras', obraRoutes);
 app.use('/api/etapas', etapaRoutes);
+
+app.use('/api/sugestoes',sugestaoRoutes);
 app.use('/api/public', publicRoutes);
 
-app.get('/', (req, res) => {
-  res.send('ObraFácil API - funcionando');
-});
 
-app.listen(port, () => {
-  console.log(`Servidor rodando na porta http://localhost:${port}`);
-});
+module.exports = app;

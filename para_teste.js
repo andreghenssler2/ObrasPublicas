@@ -1,8 +1,12 @@
 // iniciar o vizualizador do Sqlite npx prisma studio
 /*
 Criar usuario
-
-{ "nome": "Gustavo", "email": "gustavo@prefeitura.gov.br", "senha": "Agh@2021"}
+{
+  "nome": "João Silva",
+  "email": "joao@email.com",
+  "senha": "123456",
+  "tipo": "SERVIDOR"
+}
 
 //Login usuario
 { "email": "gustavo@prefeitura.gov.br", "senha": "Agh@2021"}
