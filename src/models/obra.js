@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
+const Etapa = require('./etapa');  // importar para associar
 
 const Obra = sequelize.define('Obras', {
   nome: {
@@ -27,8 +28,7 @@ const Obra = sequelize.define('Obras', {
   timestamps: true
 });
 
-Obra.associate = (models) => {
-  Obra.hasMany(models.Etapa, { foreignKey: 'obraId', as: 'etapas' });
-};
+// associação
+// Obra.hasMany(Etapa, { foreignKey: 'obraId', as: 'etapas' });
 
 module.exports = Obra;

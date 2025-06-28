@@ -1,5 +1,6 @@
 const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
+const Obra = require('./obra');  // import para associar
 
 const Etapa = sequelize.define('Etapa', {
   nome: {
@@ -17,10 +18,16 @@ const Etapa = sequelize.define('Etapa', {
     type: DataTypes.INTEGER,
     allowNull: false,
     references: {
-        model: 'Obras',  // nome da tabela no banco de dados
-        key: 'id'
-      }
+      model: 'Obras',
+      key: 'id'
+    }
   }
+}, {
+  tableName: 'Etapas',
+  timestamps: true
 });
+
+// associação
+// Etapa.belongsTo(Obra, { foreignKey: 'obraId', as: 'obra' });
 
 module.exports = Etapa;

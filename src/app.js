@@ -26,5 +26,8 @@ app.use('/api/etapas', etapaRoutes);
 app.use('/api/sugestoes',sugestaoRoutes);
 app.use('/api/public', publicRoutes);
 
+app.get('/', (req, res) => {
+  res.send('ObraFácil API - funcionando');
+});
 
 module.exports = app;
