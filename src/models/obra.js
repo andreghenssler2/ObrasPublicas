@@ -2,33 +2,21 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const Etapa = require('./etapa');  // importar para associar
 
-const Obra = sequelize.define('Obras', { // Define as configurações no banco de dados da Obra
-  nome: {
-    type: DataTypes.STRING,
-    allowNull: false,
-  },
-  localizacao: {
-    type: DataTypes.STRING,
-  },
-  empresa_responsavel: {
-    type: DataTypes.STRING,
-  },
-  cronograma: {
-    type: DataTypes.TEXT,
-  },
-  orcamento: {
-    type: DataTypes.DECIMAL(10, 2),
-  },
-  status: {
-    type: DataTypes.ENUM('PLANEJAMENTO', 'EM_EXECUCAO', 'FINALIZADO'),
-    defaultValue: 'PLANEJAMENTO',
-  }
-}, {
-  tableName: 'Obras',
-  timestamps: true
+// 
+
+const Obra = sequelize.define('Obra', {
+  nome: { type: DataTypes.STRING, allowNull: false },
+  localizacao: { type: DataTypes.STRING, allowNull: false },
+  empresaResponsavel: DataTypes.STRING,
+  cronograma: DataTypes.TEXT,
+  orcamento: DataTypes.FLOAT,
+  status: { type: DataTypes.STRING, defaultValue: 'EM ANDAMENTO' }
 });
+
+module.exports = Obra;
+
 
 // associação
 // Obra.hasMany(Etapa, { foreignKey: 'obraId', as: 'etapas' });
 
-module.exports = Obra;
+// module.exports = Obra;

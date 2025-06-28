@@ -14,6 +14,21 @@ Criar usuario
   "tipo": "SERVIDOR"
 }
 
+// Login usuario
+{
+  "email": "joao@email.com",
+  "senha": "123456"
+}
 
+
+// Criar Obra
+{
+  "nome":"Construção da Escola Municipal 'Professora Maria Silva'",
+  "localizacao":"Centro",
+  "empresa_responsavel":"Construtora Imperial Ltda",
+  "cronograma":"Dezembro 2025",
+  "orcamento":2500000.00,
+  "status":"EM_ANDAMENTO"
+}
 
 */

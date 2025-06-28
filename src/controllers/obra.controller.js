@@ -1,10 +1,23 @@
 const { Obra, Etapa } = require('../models');
 const { Op, fn, col, where: sequelizeWhere  } = require('sequelize');
 
-exports.createObra = async (req, res) => { // Cria uma Obra
-  const obra = await Obra.create(req.body);
-  res.status(201).json(obra);
+
+exports.createObra = async (req, res) => {
+  try {
+    const { nome, localizacao, empresaResponsavel, cronograma, orcamento, status } = req.body;
+
+    if (!nome || !localizacao) {
+      return res.status(400).json({ mensagem: 'Nome e localização são obrigatórios' });
+    }
+
+    const novaObra = await Obra.create({ nome, localizacao, empresaResponsavel, cronograma, orcamento, status });
+    res.status(201).json(novaObra);
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensagem: 'Erro ao criar obra', erro: error.message });
+  }
 };
+
 
 exports.listObras = async (req, res) => { // Lista Obra
   const obras = await Obra.findAll({ include: 'etapas' });
