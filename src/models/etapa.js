@@ -11,7 +11,7 @@ const Etapa = sequelize.define('Etapa', { // Define as configurações no banco 
     type: DataTypes.TEXT
   },
   status: {
-    type: DataTypes.ENUM('NAO_INICIADA', 'EM_ANDAMENTO', 'CONCLUIDA'),
+    type: DataTypes.ENUM('ESTUDO', 'LICENCIAMENTO', 'ORÇAMENTO','LICITAÇÃO','CONTRATACAO','NAO_INICIADA', 'EM_ANDAMENTO', 'CONCLUIDA'),
     defaultValue: 'NAO_INICIADA'
   },
   obraId: {

@@ -6,7 +6,7 @@ exports.getObraPublicaPorId = async (req, res) => {
     const { id } = req.params;
 
     const obra = await Obra.findByPk(id, {
-      attributes: ['id', 'nome', 'localizacao', 'empresa_responsavel', 'cronograma', 'orcamento', 'status', 'createdAt', 'updatedAt'],
+      attributes: ['id', 'nome', 'localizacao', 'empresaResponsavel', 'cronograma', 'orcamento', 'status', 'createdAt', 'updatedAt'],
       include: {
         model: Etapa,
         as: 'etapas',

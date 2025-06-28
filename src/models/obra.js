@@ -10,7 +10,7 @@ const Obra = sequelize.define('Obra', {
   empresaResponsavel: DataTypes.STRING,
   cronograma: DataTypes.TEXT,
   orcamento: DataTypes.FLOAT,
-  status: { type: DataTypes.STRING, defaultValue: 'EM ANDAMENTO' }
+  status: { type: DataTypes.STRING, defaultValue: 'ESTUDO' }
 });
 
 module.exports = Obra;
