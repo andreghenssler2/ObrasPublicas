@@ -15,7 +15,7 @@ exports.listObrasNaoFinalizadas = async (req, res) => {
   try {
     const obras = await Obra.findAll({
       where: {
-        status: { [Op.ne]: 'finalizada' }
+        status: { [Op.ne]: 'FINALIZADO' }
       }
     });
     res.json(obras);
