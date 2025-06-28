@@ -3,7 +3,7 @@ const bcrypt = require('bcrypt');
 const { Usuario } = require('../models');
 require('dotenv').config();
 
-exports.login = async (req, res) => {
+exports.login = async (req, res) => { // Login de usuario
   try{
     const { email, senha } = req.body;
     const user = await Usuario.findOne({ where: { email } });

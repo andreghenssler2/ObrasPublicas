@@ -1,7 +1,7 @@
 // src/controllers/sugestao.controller.js
 const { Sugestao } = require('../models');
 
-exports.createSugestao = async (req, res) => {
+exports.createSugestao = async (req, res) => { // Cria sugestao do Cidadao
   const { nome, email, mensagem, tipo } = req.body;
 
   if (!mensagem || !tipo) {
@@ -12,7 +12,7 @@ exports.createSugestao = async (req, res) => {
   res.status(201).json(sugestao);
 };
 
-exports.listSugestoes = async (req, res) => {
+exports.listSugestoes = async (req, res) => { // Lista as Sugestoes, todas
   const sugestoes = await Sugestao.findAll();
   res.json(sugestoes);
 };

@@ -8,7 +8,84 @@ const router = require('express').Router();
 const { createObra, listObras,listObrasNaoFinalizadas,listObrasPorBairro } = require('../controllers/obra.controller');
 const auth = require('../middlewares/auth.middleware');
 
-router.post('/', auth, createObra); // Cria obras
+/**
+ * @swagger
+ * components:
+ *   securitySchemes:
+ *     bearerAuth:
+ *       type: http
+ *       scheme: bearer
+ *       bearerFormat: JWT
+ *   schemas:
+ *     Obra:
+ *       type: object
+ *       required:
+ *         - nome
+ *         - localizacao
+ *         - empresaResponsavel
+ *         - cronograma
+ *         - orcamento
+ *         - status
+ *       properties:
+ *         id:
+ *           type: integer
+ *           description: ID gerado automaticamente
+ *         nome:
+ *           type: string
+ *           description: Nome da obra
+ *         localizacao:
+ *           type: string
+ *           description: Localização da obra
+ *         empresaResponsavel:
+ *           type: string
+ *           description: Empresa responsável
+ *         cronograma:
+ *           type: string
+ *           description: Cronograma previsto
+ *         orcamento:
+ *           type: number
+ *           format: float
+ *           description: Orçamento da obra
+ *         status:
+ *           type: string
+ *           enum: [PLANEJAMENTO, EXECUCAO, FINALIZADA]
+ *           description: Status atual da obra
+ *         createdAt:
+ *           type: string
+ *           format: date-time
+ *         updatedAt:
+ *           type: string
+ *           format: date-time
+ */
+/**
+ * @swagger
+ * /api/obras:
+ *   post:
+ *     summary: Cadastrar uma nova obra
+ *     tags: [Obras]
+ *     security:
+ *       - bearerAuth: []
+ *     requestBody:
+ *       required: true
+ *       content:
+ *         application/json:
+ *           schema:
+ *             $ref: '#/components/schemas/Obra'
+ *     responses:
+ *       201:
+ *         description: Obra criada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               $ref: '#/components/schemas/Obra'
+ *       400:
+ *         description: Dados inválidos
+ *       401:
+ *         description: Não autorizado
+ *       500:
+ *         description: Erro interno
+ */
+router.post('/', auth, createObra); // Cria obras, usuario altenticado
 
 /**
  * @swagger
@@ -22,7 +99,7 @@ router.post('/', auth, createObra); // Cria obras
  *       200:
  *         description: Lista de obras
  */
-router.get('/', listObras);
+router.get('/', listObras); // lista pbras
 
 /**
  * @swagger
@@ -36,7 +113,7 @@ router.get('/', listObras);
  *       200:
  *         description: Lista de obras em andamento
  */
-router.get('/andamento', auth, listObrasNaoFinalizadas);
+router.get('/andamento', auth, listObrasNaoFinalizadas); // lista obras em andamento, somente usuario autenticado
 /**
  * @swagger
  * /api/obras/bairro:
@@ -55,7 +132,7 @@ router.get('/andamento', auth, listObrasNaoFinalizadas);
  *       200:
  *         description: Lista de obras do bairro
  */
-router.get('/bairro', auth, listObrasPorBairro);
+router.get('/bairro', auth, listObrasPorBairro); // Lista obras por bairro, somente usuario autenticado
 
 
 module.exports = router;

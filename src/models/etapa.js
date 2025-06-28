@@ -2,7 +2,7 @@ const { DataTypes } = require('sequelize');
 const sequelize = require('../config/db');
 const Obra = require('./obra');  // import para associar
 
-const Etapa = sequelize.define('Etapa', {
+const Etapa = sequelize.define('Etapa', { // Define as configurações no banco de dados de Etapas
   nome: {
     type: DataTypes.STRING,
     allowNull: false

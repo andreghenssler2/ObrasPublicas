@@ -1,8 +1,8 @@
-const sequelize = require('../config/db');
-const Usuario = require('./usuario');
-const Obra = require('./obra');
-const Etapa = require('./etapa');
-const Sugestao = require('./sugestao');
+const sequelize = require('../config/db'); // Conexao com o Banco de dados
+const Usuario = require('./usuario'); // requer usuario
+const Obra = require('./obra'); // requer obras
+const Etapa = require('./etapa'); // requer etapas
+const Sugestao = require('./sugestao'); // requer Sugestao
 
 // Relacionamentos
 // Obra.hasMany(Etapa, { as: 'etapas' });

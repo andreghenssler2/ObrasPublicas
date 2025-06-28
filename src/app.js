@@ -4,7 +4,6 @@ const cors = require('cors');
 
 const app = express();
 
-// ✅ precisa desse middleware para ler JSON:
 app.use(express.json());
 
 app.use(cors());
@@ -17,9 +16,12 @@ const etapaRoutes = require('./routes/etapa.routes');
 const sugestaoRoutes = require('./routes/sugestao.routes');
 const publicRoutes = require('./routes/public.routes');
 
+// documentação do Swagger
 const { swaggerUi, specs } = require('./docs/swagger');
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
+
+// Api para rotas
 app.use('/api/auth', authRoutes);
 app.use('/api/usuarios', userRoutes);
 app.use('/api/obras', obraRoutes);

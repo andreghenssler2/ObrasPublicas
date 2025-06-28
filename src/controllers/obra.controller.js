@@ -1,17 +1,17 @@
 const { Obra, Etapa } = require('../models');
 const { Op, fn, col, where: sequelizeWhere  } = require('sequelize');
 
-exports.createObra = async (req, res) => {
+exports.createObra = async (req, res) => { // Cria uma Obra
   const obra = await Obra.create(req.body);
   res.status(201).json(obra);
 };
 
-exports.listObras = async (req, res) => {
+exports.listObras = async (req, res) => { // Lista Obra
   const obras = await Obra.findAll({ include: 'etapas' });
   res.json(obras);
 };
 
-exports.listObrasNaoFinalizadas = async (req, res) => {
+exports.listObrasNaoFinalizadas = async (req, res) => { // Lista todas as obras que nao estao finalizado
   try {
     const obras = await Obra.findAll({
       where: {
@@ -24,6 +24,7 @@ exports.listObrasNaoFinalizadas = async (req, res) => {
     res.status(500).json({ mensagem: 'Erro ao listar obras não finalizadas' });
   }
 };
+
 // Listar obras por bairro (filtro opcional)
 exports.listObrasPorBairro = async (req, res) => {
   try {
