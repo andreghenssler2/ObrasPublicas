@@ -2,7 +2,7 @@ const app = require('./src/app');
 const { sequelize } = require('./src/models');
 
 const PORT = process.env.PORT || 8080;
-
+console.log('DB_DIALECT:', process.env.DB_DIALECT);
 (async () => {
   try {
     await sequelize.sync(); // Cria tabelas se não existirem
