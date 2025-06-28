@@ -1,10 +1,13 @@
 const express = require('express');
 require('dotenv').config();
+const cors = require('cors');
 
 const app = express();
 
 // ✅ precisa desse middleware para ler JSON:
 app.use(express.json());
+
+app.use(cors());
 
 // depois vem suas rotas
 const authRoutes = require('./routes/auth.routes');
