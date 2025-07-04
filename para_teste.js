@@ -25,7 +25,7 @@ Criar usuario
 {
   "nome":"Construção da Escola Municipal 'Professora Maria Silva'",
   "localizacao":"Centro",
-  "empresa_responsavel":"Construtora Imperial Ltda",
+  "empresaResponsavel":"Construtora Imperial Ltda",
   "cronograma":"Dezembro 2025",
   "orcamento":2500000.00,
   "status":"EM_ANDAMENTO"
@@ -33,7 +33,7 @@ Criar usuario
 {
   "nome":"Reforma da Praça Guaruja",
   "localizacao":"Guaruja",
-  "empresa_responsavel":"Construtora Morada Feliz",
+  "empresaResponsavel":"Construtora Morada Feliz",
   "cronograma":"Junho 2025 a Dezembro 2025",
   "orcamento":500000,
   "status":"EM_ANDAMENTO"
@@ -41,8 +41,8 @@ Criar usuario
   
 {
   "nome":"Reforma e Ampliação da UBS Centro",
-  "localizacao":"Guaruja",
-  "empresa_responsavel":"Construtora Sol Nascente Ltda",
+  "localizacao":"Centro",
+  "empresaResponsavel":"Construtora Sol Nascente Ltda",
   "cronograma":"Julho 2025 a Dezembro 2025",
   "orcamento":500000,
   "status":"EM_ANDAMENTO"
@@ -57,7 +57,15 @@ Criar usuario
   "obraId": 1
 }
 
+// Mudando as Etapas do Obra
 
+// {"status": "LICENCIAMENTO"}
+// {"status": "ESTUDO"}
+// {"status": "ORÇAMENTO"}
+// {"status": "LICITAÇÃO"}
+// {"status": "CONTRATACAO"}
+// {"status": "NAO_INICIADA"}
+// {"status": "EM_ANDAMENTO"}
 // {"status": "CONCLUIDA"}
 
 */

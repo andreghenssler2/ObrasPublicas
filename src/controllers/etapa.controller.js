@@ -26,8 +26,9 @@ exports.updateStatusEtapa = async (req, res) => {
     return res.status(400).json({ mensagem: 'Status é obrigatório' });
   }
 
+  // ('ESTUDO', 'LICENCIAMENTO', 'ORÇAMENTO','LICITAÇÃO','CONTRATACAO','NAO_INICIADA', 'EM_ANDAMENTO', 'CONCLUIDA')
   // Opcional: validar se status é válido
-  const statusValidos = ['NAO_INICIADA', 'EM_ANDAMENTO', 'CONCLUIDA'];
+  const statusValidos = ['ESTUDO', 'LICENCIAMENTO', 'ORÇAMENTO','LICITAÇÃO','CONTRATACAO','NAO_INICIADA', 'EM_ANDAMENTO', 'CONCLUIDA'];
   if (!statusValidos.includes(status)) {
     return res.status(400).json({ mensagem: 'Status inválido' });
   }
