@@ -55,6 +55,9 @@ exports.listObrasPorBairro = async (req, res) => {
       where,
       order: [['createdAt', 'DESC']]
     });
+    if (obras.length === 0) {
+      return res.status(404).json({ mensagem: 'Não há obras encontradas' });
+    }
 
     res.json(obras);
   } catch (error) {
