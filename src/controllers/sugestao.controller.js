@@ -9,6 +9,9 @@ exports.createSugestao = async (req, res) => { // Cria sugestao do Cidadao
   }
 
   const sugestao = await Sugestao.create({ nome, email, mensagem, tipo });
+  if (sugestao.length === 0) {
+      return res.status(404).json({ mensagem: 'Não há SUGESTÕES de Cidadão encontradas' });
+    }
   res.status(201).json(sugestao);
 };
 
