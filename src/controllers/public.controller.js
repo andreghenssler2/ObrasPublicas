@@ -17,6 +17,9 @@ exports.getObraPublicaPorId = async (req, res) => {
     if (!obra) {
       return res.status(404).json({ mensagem: 'Obra não encontrada' });
     }
+    if (obra.length === 0) {
+      return res.status(404).json({ mensagem: 'Obra não encontrada' });
+    }
 
     res.json(obra);
   } catch (error) {
@@ -32,6 +35,9 @@ exports.listObrasPublicas = async (req, res) => {
       attributes: ['id', 'nome', 'localizacao', 'status', 'createdAt', 'updatedAt'],
       order: [['createdAt', 'DESC']]
     });
+    if (obras.length === 0) {
+      return res.status(404).json({ mensagem: 'Não há obras encontradas' });
+    }
     res.json(obras);
   } catch (error) {
     console.error(error);

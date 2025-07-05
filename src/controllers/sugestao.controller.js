@@ -9,13 +9,16 @@ exports.createSugestao = async (req, res) => { // Cria sugestao do Cidadao
   }
 
   const sugestao = await Sugestao.create({ nome, email, mensagem, tipo });
-  if (sugestao.length === 0) {
-      return res.status(404).json({ mensagem: 'Não há SUGESTÕES de Cidadão encontradas' });
-    }
+  // if (sugestao.length === 0) {
+  //     return res.status(404).json({ mensagem: 'Não há SUGESTÕES de Cidadão encontradas' });
+  // }
   res.status(201).json(sugestao);
 };
 
 exports.listSugestoes = async (req, res) => { // Lista as Sugestoes, todas
   const sugestoes = await Sugestao.findAll();
+  if (sugestoes.length === 0) {
+      return res.status(404).json({ mensagem: 'Não há SUGESTÕES de Cidadão encontradas' });
+  }
   res.json(sugestoes);
 };
