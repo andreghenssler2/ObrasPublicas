@@ -26,8 +26,6 @@ exports.updateStatusEtapa = async (req, res) => {
     return res.status(400).json({ mensagem: 'Status é obrigatório' });
   }
 
-  // ('ESTUDO', 'LICENCIAMENTO', 'ORÇAMENTO','LICITAÇÃO','CONTRATACAO','NAO_INICIADA', 'EM_ANDAMENTO', 'CONCLUIDA')
-  // Opcional: validar se status é válido
   const statusValidos = ['ESTUDO', 'LICENCIAMENTO', 'ORÇAMENTO','LICITAÇÃO','CONTRATACAO','NAO_INICIADA', 'EM_ANDAMENTO', 'CONCLUIDA'];
   if (!statusValidos.includes(status)) {
     return res.status(400).json({ mensagem: 'Status inválido' });
@@ -62,6 +60,10 @@ exports.listEtapasByObra = async (req, res) => {
       where: { obraId },
       order: [['createdAt', 'ASC']] // ou 'id' ASC, para ordem cronológica
     });
+    
+    if (etapas.length === 0) {
+      return res.status(404).json({ mensagem: 'Não há obras encontradas' });
+    }
 
     res.json(etapas);
   } catch (error) {

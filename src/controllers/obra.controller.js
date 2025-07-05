@@ -21,6 +21,9 @@ exports.createObra = async (req, res) => {
 
 exports.listObras = async (req, res) => { // Lista Obra
   const obras = await Obra.findAll({ include: 'etapas' });
+  if (obras.length === 0) {
+      return res.status(404).json({ mensagem: 'Não há obras encontradas' });
+    }
   res.json(obras);
 };
 
@@ -31,6 +34,9 @@ exports.listObrasNaoFinalizadas = async (req, res) => { // Lista todas as obras 
         status: { [Op.ne]: 'FINALIZADO' }
       }
     });
+    if (obras.length === 0) {
+      return res.status(404).json({ mensagem: 'Não há obras encontradas' });
+    }
     res.json(obras);
   } catch (error) {
     console.error(error);
