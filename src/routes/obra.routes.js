@@ -5,7 +5,7 @@
  *   description: Rotas autenticadas para obras
  */
 const router = require('express').Router();
-const { createObra, listObras,listObrasNaoFinalizadas,listObrasPorBairro } = require('../controllers/obra.controller');
+const { createObra, listObras,listObrasNaoFinalizadas,listObrasPorBairro,finalizarObra } = require('../controllers/obra.controller');
 const auth = require('../middlewares/auth.middleware');
 
 /**
@@ -57,6 +57,7 @@ const auth = require('../middlewares/auth.middleware');
  *           type: string
  *           format: date-time
  */
+
 /**
  * @swagger
  * /api/obras:
@@ -134,5 +135,77 @@ router.get('/andamento', auth, listObrasNaoFinalizadas); // lista obras em andam
  */
 router.get('/bairro', auth, listObrasPorBairro); // Lista obras por bairro, somente usuario autenticado
 
+/**
+ * @swagger
+ * /api/obras/{id}/finalizar:
+ *   patch:
+ *     summary: Finalizar uma obra
+ *     description: Atualiza o status da obra para FINALIZADA.
+ *     tags:
+ *       - Obras
+ *     security:
+ *       - bearerAuth: []
+ *     parameters:
+ *       - in: path
+ *         name: id
+ *         required: true
+ *         schema:
+ *           type: integer
+ *         description: ID da obra a ser finalizada
+ *     responses:
+ *       200:
+ *         description: Obra finalizada com sucesso
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensagem:
+ *                   type: string
+ *                   example: Obra finalizada com sucesso
+ *                 obra:
+ *                   type: object
+ *                   properties:
+ *                     id:
+ *                       type: integer
+ *                     nome:
+ *                       type: string
+ *                     localizacao:
+ *                       type: string
+ *                     empresaResponsavel:
+ *                       type: string
+ *                     cronograma:
+ *                       type: string
+ *                     orcamento:
+ *                       type: number
+ *                     status:
+ *                       type: string
+ *                       example: FINALIZADA
+ *                     createdAt:
+ *                       type: string
+ *                     updatedAt:
+ *                       type: string
+ *       404:
+ *         description: Obra não encontrada
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensagem:
+ *                   type: string
+ *                   example: Obra não encontrada
+ *       500:
+ *         description: Erro ao finalizar a obra
+ *         content:
+ *           application/json:
+ *             schema:
+ *               type: object
+ *               properties:
+ *                 mensagem:
+ *                   type: string
+ *                   example: Erro ao finalizar a obra
+ */
+router.patch('/:id/finalizar', auth, finalizarObra);
 
 module.exports = router;

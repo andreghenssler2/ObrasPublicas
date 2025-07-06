@@ -71,3 +71,29 @@ exports.listObrasPorBairro = async (req, res) => {
     res.status(500).json({ mensagem: 'Erro ao listar obras por bairro' });
   }
 };
+
+
+exports.finalizarObra = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    // Busca a obra pelo ID
+    const obra = await Obra.findByPk(id);
+
+    if (!obra) {
+      return res.status(404).json({ mensagem: 'Obra não encontrada' });
+    }
+
+    // Atualiza o status para FINALIZADA
+    obra.status = 'FINALIZADA';
+    await obra.save();
+    if (obra.length === 0) {
+      return res.status(404).json({ mensagem: 'Não foi possivel Salvar' });
+    }
+
+    res.json({ mensagem: 'Obra finalizada com sucesso', obra });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ mensagem: 'Erro ao finalizar a obra' });
+  }
+};

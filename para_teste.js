@@ -24,7 +24,7 @@ Criar usuario
 // Criar Obra
 { "nome":"Construção da Escola Municipal 'Professora Maria Silva'", "localizacao":"Centro", "empresaResponsavel":"Construtora Imperial Ltda", "cronograma":"Dezembro 2025", "orcamento":2500000.00, "status":"EM_ANDAMENTO"}
 
-{ "nome":"Reforma da Praça Guaruja", "localizacao":"Guaruja", "empresaResponsavel":"Construtora Morada Feliz", "cronograma":"Junho 2025 a Dezembro 2025", "orcamento":500000, "status":"EM_ANDAMENTO" }
+{ "nome":"Reforma da Praça Guaruja", "localizacao":"Guaruja", "empresaResponsavel":"Construtora Morada Feliz", "cronograma":"Junho 2025 a Dezembro 2025", "orcamento":500000.02, "status":"EM_ANDAMENTO" }
    
 { "nome":"Obra de Pavimentação Asfáltica", "localizacao":"Jardim", "empresaResponsavel":"Construtora Asfalto Forte S/A", "cronograma":"Setembro/2025 a Novembro/2025", "orcamento":350000, "status":"EM_ANDAMENTO" } 
 
