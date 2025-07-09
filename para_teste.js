@@ -1,5 +1,7 @@
 // iniciar o vizualizador do Sqlite npx prisma studio
+// https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/
 /*
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/usuarios
 Criar usuario
 {
   "nome": "João Silva",
@@ -15,6 +17,7 @@ Criar usuario
 }
 
 // Login usuario
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/auth/login
 {
   "email": "joao@email.com",
   "senha": "123456"
@@ -22,6 +25,7 @@ Criar usuario
 
 
 // Criar Obra
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/obras
 { "nome":"Construção da Escola Municipal 'Professora Maria Silva'", "localizacao":"Centro", "empresaResponsavel":"Construtora Imperial Ltda", "cronograma":"Dezembro 2025", "orcamento":2500000.00, "status":"EM_ANDAMENTO"}
 
 { "nome":"Reforma da Praça Guaruja", "localizacao":"Guaruja", "empresaResponsavel":"Construtora Morada Feliz", "cronograma":"Junho 2025 a Dezembro 2025", "orcamento":500000.02, "status":"EM_ANDAMENTO" }
@@ -34,8 +38,14 @@ Criar usuario
 
 { "nome":"Restauração do Antigo Teatro Municipal", "localizacao":"Centro", "empresaResponsavel":"Patrimônio Vivo Restaurações Ltda.", "cronograma":"Junho/2025 a Dezembro/2026", "orcamento":1950000,, "status":"EM_ANDAMENTO" }
 
+// Listar obras Todas
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/obras
+// Listar Obras em Andamento
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/obras/andamento
+
 
 // Criar etapas
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/etapas
 { "nome": "Planejamento", "descricao": "Elaboração dos projetos arquitetônicos e complementares", "status": "NAO_INICIADA", "obraId": 1 }
 
 { "nome": "Infraestrutura", "descricao": "Limpeza e preparação do terreno", "status": "NAO_INICIADA", "obraId": 1 }
@@ -44,7 +54,7 @@ Criar usuario
 
 
 // Mudando as Etapas do Obra
-
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/etapas/1/status
 // {"status": "LICENCIAMENTO"}
 // {"status": "ESTUDO"}
 // {"status": "ORÇAMENTO"}
@@ -54,8 +64,14 @@ Criar usuario
 // {"status": "EM_ANDAMENTO"}
 // {"status": "CONCLUIDA"}
 
+// Listar obras por Etapas
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/etapas/obra/1
 
+// Listar obras por Bairro
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/obras/bairro?bairro=Guaruja
 
+// Sugestao do Usuario - Nao precisa estar logado
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/sugestoes
 {
   "nome": "João Carlos",
   "email": "joao@email.com",
@@ -74,5 +90,23 @@ Criar usuario
   "mensagem": "A praça precisa de iluminação melhor.",
   "tipo": "ELOGIO"
 }
+
+// Listar sugestoes do usuario - precisa logar
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/sugestoes/listas
+
+
+
+// Sem login consulta publicas
+// Listar todas as obras
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/public/obras
+
+// Consultar obras especifica
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/public/obras/1
+
+
+// Finalizar obras
+https://public-obras-gygagphgfddwared.canadacentral-01.azurewebsites.net/api/obras/5/finalizar
+
+
 //
 */
