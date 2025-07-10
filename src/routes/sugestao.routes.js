@@ -50,7 +50,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /api/public/sugestoes:
+ * /api/sugestoes/listas:
  *   get:
  *     summary: Lista todas as sugestões ou denúncias
  *     tags: [Sugestoes]
@@ -67,7 +67,7 @@ module.exports = router;
 
 /**
  * @swagger
- * /api/public/sugestoes:
+ * /api/sugestoes:
  *   post:
  *     summary: Enviar uma nova sugestão ou denúncia
  *     tags: [Sugestoes]
